@@ -67,7 +67,7 @@ ask "Install base packages and pikaur?" Y && {
     rm pikaur -rf
 
     echo "Installing other basic packages"
-    pikaur --noconfirm --needed curl grub networkmanager network-manager-applet dhclient
+    pikaur --noconfirm --needed dconf curl grub networkmanager network-manager-applet dhclient
     sudo cp networkmanager_conf/dhcp-client.conf /etc/NetworkManager/conf.d/dhcp-client.conf 
 }
 
@@ -121,11 +121,21 @@ ask "Install base16 shell (for shell colors and themes)?" Y && {
 
 ask "Install and configure oh-my-zsh?" Y && {
     rm $HOME/.oh-my-zsh -rf
-    mv $HOME/.zshrc $HOME/.zshrc_local
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    
+    if [ -f $HOME/.zshrc ]; then
+        mv $HOME/.zshrc $HOME/.zshrc_local
+    fi
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed '/\s*env\s\s*zsh\s*/d')" \
     ln -sfn ${dir}/zsh/.zshrc ${HOME}/.zshrc 
 }
 
+ask "Use cinnamon configuration?" Y && {
+    dconf load /org/cinnamon/ < ${dir}/configs/cinnamon_desktop_config
+}
+
+ask "Use terminator configuration?" Y && {
+    ln -sfn ${dir}/configs/terminator_config  ${HOME}/.config/terminator/config
+}
 cd setup
 echo "Done!"
 
