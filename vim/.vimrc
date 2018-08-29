@@ -26,7 +26,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'kien/ctrlp.vim'
 
 " Elixir syntax highlighting
-Plugin 'elixir-lang/vim-elixir'
+Plugin 'vim-syntastic/syntastic'
 
 " Vimwiki
 Plugin 'vimwiki/vimwiki'
@@ -162,6 +162,24 @@ highlight Search ctermfg=0 ctermbg=250
 
 " Pairs highlight
 highlight MatchParen cterm=bold ctermfg=255 ctermbg=0
+
+" Selected tab (files)
+highlight TabLineSel ctermfg=0 ctermbg=255
+
+" Wild menu (command 'tab' suggestions)
+highlight WildMenu ctermfg=0 ctermbg=250
+
+" Bad Spell
+highlight clear SpellBad
+highlight clear SpellCap
+highlight clear SpellRare
+highlight clear SpellLocal
+
+highlight SpellBad cterm=underline ctermfg=196 ctermbg=0
+highlight SpellCap cterm=underline ctermfg=190 ctermbg=0
+highlight SpellRare cterm=underline 
+highlight SpellLocal cterm=underline
+
 
 set cursorline	" highlight current active line
 highlight CursorLine ctermbg=235
