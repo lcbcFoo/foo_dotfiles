@@ -35,7 +35,7 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'Valloric/YouCompleteMe'
 
 " AutoClose
-Plugin 'cohama/lexima.vim'
+Plugin 'jiangmiao/auto-pairs'
 
 " Status bar
 Plugin 'vim-airline/vim-airline'
@@ -147,17 +147,24 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme nord
+colorscheme base16-tomorrow-night
 
-highlight Visual ctermfg=21 ctermbg=11 
+" Visual Mode 
+highlight Visual ctermfg=0 ctermbg=250 
+
 " Menu colors
-"highlight Pmenu ctermfg=238 ctermbg=253
+highlight Pmenu ctermfg=238 ctermbg=253
+" Menu selelected
+highlight PmenuSel ctermfg=230 ctermbg=243
 
-" Menu selected colors 
-"highlight PmenuSel ctermfg=230 ctermbg=243
+" Error
+highlight Search ctermfg=0 ctermbg=250
+
+" Pairs highlight
+highlight MatchParen cterm=bold ctermfg=255 ctermbg=0
 
 set cursorline	" highlight current active line
-
+highlight CursorLine ctermbg=235
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Persistent Undo

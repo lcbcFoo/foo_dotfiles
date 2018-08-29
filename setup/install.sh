@@ -98,7 +98,8 @@ ask "Install symlink for .vimrc?" Y && {
     ln -sfn ${dir}/vim/.vimrc ${HOME}/.vimrc 
     mkdir ${HOME}/.vim
     mkdir ${HOME}/.vim/bundle
-
+    mkdir ${HOME}/.vim/undo 
+    
     ask "Install vundle and vim plugins now? (will install clang package)" Y && {
         git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
         echo "Installing vim plugins"
