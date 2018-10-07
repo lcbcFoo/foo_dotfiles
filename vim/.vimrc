@@ -54,6 +54,9 @@ Plugin 'tpope/vim-commentary'
 " Ident Line
 Plugin 'Yggdroot/indentLine'
 
+" Markdown preview
+Plugin 'suan/vim-instant-markdown'
+
 " Keep Plugin commands between vundle#begin/end.
 
 " All of your Plugins must be added before the following line
@@ -77,6 +80,9 @@ let g:ctrlp_cmd = 'CtrlP'
 """"""""""""""""""""""""""""""""""""""""""""""""
 " General Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""
+" Set default copy register to +
+set clipboard=unnamedplus
+
 " Automatically update a file if it is changed externally
 set autoread
 
@@ -152,16 +158,16 @@ colorscheme base16-tomorrow-night
 " Visual Mode 
 highlight Visual ctermfg=0 ctermbg=250 
 
-" Menu colors
-highlight Pmenu ctermfg=238 ctermbg=253
-" Menu selelected
-highlight PmenuSel ctermfg=230 ctermbg=243
+" Menu Selected
+highlight PmenuSel ctermfg=238 ctermbg=253
+" Menu 
+highlight Pmenu ctermfg=230 ctermbg=243
 
 " Error
 highlight Search ctermfg=0 ctermbg=250
 
 " Pairs highlight
-highlight MatchParen cterm=bold ctermfg=255 ctermbg=0
+highlight MatchParen cterm=bold ctermfg=255 ctermbg=240
 
 " Selected tab (files)
 highlight TabLineSel ctermfg=0 ctermbg=255

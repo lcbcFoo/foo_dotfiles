@@ -84,7 +84,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-
+zstyle ':completion:*' rehash true
 
 # User configuration
 
@@ -115,5 +115,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
