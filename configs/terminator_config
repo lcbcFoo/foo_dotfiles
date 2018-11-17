@@ -1,4 +1,7 @@
 [global_config]
+  borderless = True
+  extra_styling = False
+  scroll_tabbar = True
   title_inactive_bg_color = "#2e3436"
   title_inactive_fg_color = "#babdb6"
   title_receive_bg_color = "#ad7fa8"
@@ -14,6 +17,7 @@
   [[default]]
     [[[child1]]]
       parent = window0
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -21,8 +25,9 @@
 [plugins]
 [profiles]
   [[default]]
-    background_darkness = 0.96
-    background_type = transparent
+    background_darkness = 0.76
     cursor_color = "#aaaaaa"
-    font = Liberation Mono 11
+    font = MesloLGS Nerd Font 11
+    foreground_color = "#ffffff"
+    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
     use_system_font = False

@@ -10,7 +10,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # Set colors
-base16_tomorrow-night
+source /home/foo/.config/base16-shell/scripts/base16-tomorrow-night.sh
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -18,8 +18,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="sunaku"
-
+ZSH_THEME="ys"
+#ZSH_THEME="fino-time"
+ZSH_THEME="aphrodite"
 
 # Source local zsh config
 if [ -f ${HOME}/.zshrc_local ]; then
@@ -29,6 +30,7 @@ fi
 ####
 # Aliases
 ####
+alias vim='nvim'
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
