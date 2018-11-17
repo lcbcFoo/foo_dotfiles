@@ -10,7 +10,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # Set colors
-source /home/foo/.config/base16-shell/scripts/base16-tomorrow-night.sh
+source /home/foo/.config/base16-shell/scripts/base16-phd.sh
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
