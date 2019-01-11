@@ -18,6 +18,7 @@ Plug 'blindFS/vim-taskwarrior'
 Plug 'tpope/vim-commentary'
 Plug 'Yggdroot/indentLine'
 Plug 'chriskempson/base16-vim'
+Plug 'jacoborus/tender.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Status line
@@ -29,7 +30,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Syntatstic
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -187,46 +188,56 @@ set updatetime=100
 "
 "
 """""""""""""""""""""""""""""""""""""""""""""""""
-let base16colorspace=256
+"let base16colorspace=256
+set termguicolors
 " Status bar
 let g:airline#extensions#tabX8line#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_base16_improved_contrast = 1
 let g:airline_theme='base16_oceanicnext'
 
-colorscheme base16-tomorrow-night
+"colorscheme base16-phd
+
+
+syntax enable
+colorscheme tender
+let g:lightline = { 'colorscheme': 'tenderplus' }
 
 " Visual Mode 
-highlight Visual ctermfg=0 ctermbg=250 
+"highlight Visual ctermfg=0 ctermbg=250 
 
-" Menu Selected
-highlight PmenuSel ctermfg=238 ctermbg=253
-" Menu 
-highlight Pmenu ctermfg=230 ctermbg=243
+"" Menu Selected
+"highlight PmenuSel ctermfg=238 ctermbg=253
+"" Menu 
+"highlight Pmenu ctermfg=230 ctermbg=243
 
-" Error
-highlight Search ctermfg=0 ctermbg=250
+"" Error
+"highlight Search ctermfg=0 ctermbg=250
 
-" Pairs highlight
-highlight MatchParen cterm=bold ctermfg=255 ctermbg=240
+"" Pairs highlight
+"highlight MatchParen cterm=bold ctermfg=255 ctermbg=240
 
-" Selected tab (files)
-highlight TabLineSel ctermfg=0 ctermbg=255
+"" Selected tab (files)
+"highlight TabLineSel ctermfg=0 ctermbg=255
 
-" Wild menu (command 'tab' suggestions)
-highlight WildMenu ctermfg=0 ctermbg=250
+"" Wild menu (command 'tab' suggestions)
+"highlight WildMenu ctermfg=0 ctermbg=250
 
-" Bad Spell
-highlight clear SpellBad
-highlight clear SpellCap
-highlight clear SpellRare
-highlight clear SpellLocal
+"" Numbers
+highlight LineNr guifg=#606060
+""ctermbg=255
 
-highlight SpellBad cterm=underline ctermfg=196 ctermbg=0
-highlight SpellCap cterm=underline ctermfg=190 ctermbg=0
-highlight SpellRare cterm=underline 
-highlight SpellLocal cterm=underline
+"" Bad Spell
+"highlight clear SpellBad
+"highlight clear SpellCap
+"highlight clear SpellRare
+"highlight clear SpellLocal
+
+"highlight SpellBad cterm=underline ctermfg=196 ctermbg=0
+"highlight SpellCap cterm=underline ctermfg=190 ctermbg=0
+"highlight SpellRare cterm=underline 
+"highlight SpellLocal cterm=underline
 
 
-set cursorline	" highlight current active line
-highlight CursorLine ctermbg=235
+"set cursorline	" highlight current active line
+"highlight CursorLine guibg=#152039
