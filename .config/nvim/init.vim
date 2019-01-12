@@ -80,8 +80,8 @@ syntax on
 set encoding=utf8
 
 " Open on line that closed
-"au BufWinLeave * mkview
-"au BufWinEnter * silent loadview
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
 
 " Clear highlight with space
 nnoremap <space> :noh<return><esc>
@@ -201,30 +201,35 @@ let g:airline_theme='base16_oceanicnext'
 
 syntax enable
 colorscheme tender
-let g:lightline = { 'colorscheme': 'tenderplus' }
+"let g:lightline = { 'colorscheme': 'tenderplus' }
 
 " Visual Mode 
-"highlight Visual ctermfg=0 ctermbg=250 
+highlight Visual guifg=#483D8B guibg=#B0C4DE 
 
 "" Menu Selected
 "highlight PmenuSel ctermfg=238 ctermbg=253
+highlight PmenuSel guifg=#B0C4DE guibg=#483D8B
+
 "" Menu 
 "highlight Pmenu ctermfg=230 ctermbg=243
+highlight Pmenu guifg=#483D8B guibg=#B0C4DE
 
 "" Error
 "highlight Search ctermfg=0 ctermbg=250
 
 "" Pairs highlight
-"highlight MatchParen cterm=bold ctermfg=255 ctermbg=240
+highlight MatchParen gui=bold guifg=#FFFFFF guibg=#061229
 
 "" Selected tab (files)
 "highlight TabLineSel ctermfg=0 ctermbg=255
 
 "" Wild menu (command 'tab' suggestions)
-"highlight WildMenu ctermfg=0 ctermbg=250
+highlight WildMenu guifg=#202020 guibg=#EEEEEE
 
 "" Numbers
-highlight LineNr guifg=#606060
+highlight LineNr guifg=#a0a0a0
+
+highlight Normal guibg=#061229
 ""ctermbg=255
 
 "" Bad Spell
