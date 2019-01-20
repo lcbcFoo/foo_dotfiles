@@ -30,7 +30,7 @@ fi
 ####
 # Aliases
 ####
-alias vim='nvim'
+#alias vim='nvim'
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random

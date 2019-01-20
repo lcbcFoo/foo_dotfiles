@@ -5,16 +5,34 @@ call plug#begin('~/.config/nvim/plugins')
 "Plug 'francoiscabrol/ranger.vim'
 "Plug 'rbgrouleff/bclose.vim'
 
-" Auto complete
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'zchee/deoplete-jedi'
+Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator' 
+
+" Autocompletion and code snippets
+"Plug 'Shougo/deoplete.nvim'
+""Plug 'zchee/deoplete-clang'
+"Plug 'Shougo/neoinclude.vim'
+"let g:deoplete#enable_at_startup = 1
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+""Plug 'lyuts/vim-rtags'
+"Plug 'rhysd/vim-clang-format'
+Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_project_root = ['tags'] 
+
+" Lint
+""Plug 'w0rp/ale'
+
+" Tags
+Plug 'majutsushi/tagbar'
 
 " Utils
 Plug 'tpope/vim-sensible'
 Plug 'jiangmiao/auto-pairs'
-Plug 'blindFS/vim-taskwarrior'
+"Plug 'blindFS/vim-taskwarrior'
 Plug 'tpope/vim-commentary'
 Plug 'Yggdroot/indentLine'
 Plug 'chriskempson/base16-vim'
@@ -38,6 +56,8 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""
 " Configs
 """""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = ","
+
 " Automatically update a file if it is changed externally
 set autoread
 
@@ -80,8 +100,8 @@ syntax on
 set encoding=utf8
 
 " Open on line that closed
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+"au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
 
 " Clear highlight with space
 nnoremap <space> :noh<return><esc>
@@ -94,14 +114,27 @@ let g:ctrlp_cmd = 'CtrlP'
 " Buffers
 set hidden
 
-" Tab navigation
+" Tab related
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+let g:neosnippet#enable_completed_snippet = 1
+
+" FIle tabs navigation with arrows
 nnoremap <C-left> :tabprevious<CR>
 nnoremap <C-right>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
+"nnoremap <C-t>     :tabnew<CR>
 inoremap <C-left> <Esc>:tabprevious<CR>i
 inoremap <C-right>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
+""inoremap <C-t>     <Esc>:tabnew<CR>
 
+" Tagbar
+nmap <C-t> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
@@ -229,7 +262,7 @@ highlight WildMenu guifg=#202020 guibg=#EEEEEE
 "" Numbers
 highlight LineNr guifg=#a0a0a0
 
-highlight Normal guibg=#061229
+""highlight Normal guibg=#061229
 ""ctermbg=255
 
 "" Bad Spell
@@ -246,3 +279,4 @@ highlight Normal guibg=#061229
 
 "set cursorline	" highlight current active line
 "highlight CursorLine guibg=#152039
+
