@@ -1,30 +1,18 @@
-
 call plug#begin('~/.config/nvim/plugins')
 
-" File explorer
-"Plug 'francoiscabrol/ranger.vim'
-"Plug 'rbgrouleff/bclose.vim'
-
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator' 
-
 " Autocompletion and code snippets
-"Plug 'Shougo/deoplete.nvim'
-""Plug 'zchee/deoplete-clang'
-"Plug 'Shougo/neoinclude.vim'
-"let g:deoplete#enable_at_startup = 1
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-clang'
+Plug 'Shougo/neoinclude.vim'
+let g:deoplete#enable_at_startup = 1
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-""Plug 'lyuts/vim-rtags'
-"Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format'
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_project_root = ['tags'] 
-
-" Lint
-""Plug 'w0rp/ale'
 
 " Tags
 Plug 'majutsushi/tagbar'
@@ -139,14 +127,14 @@ nmap <C-t> :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Text and Indentation
