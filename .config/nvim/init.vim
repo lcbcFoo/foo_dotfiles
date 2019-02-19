@@ -1,33 +1,35 @@
 call plug#begin('~/.config/nvim/plugins')
 
-" Autocompletion and code snippets
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-clang'
-Plug 'Shougo/neoinclude.vim'
-let g:deoplete#enable_at_startup = 1
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
+" Shougo crazy stuff
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do' : ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-Plug 'rhysd/vim-clang-format'
-Plug 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_project_root = ['tags'] 
-
-" Tags
-Plug 'majutsushi/tagbar'
-
-" Utils
-Plug 'tpope/vim-sensible'
-Plug 'jiangmiao/auto-pairs'
-"Plug 'blindFS/vim-taskwarrior'
 Plug 'tpope/vim-commentary'
-Plug 'Yggdroot/indentLine'
+Plug 'Raimondi/delimitMate'
+
+"Plug 'vhda/verilog_systemverilog.vim'
+" Plug 'antoinemadec/vim-verilog-instance'
+
+
+" Plug 'rhysd/vim-clang-format'
+"Plug 'ludovicchabant/vim-gutentags'
+"set statusline+=%{gutentags#statusline()}
+"let g:gutentags_project_root = ['tags'] 
+"let g:gutentags_ctags_extra_args = ['--extra=+q', '--fields=+i', '-n']
+
+" Colorscheme
 Plug 'chriskempson/base16-vim'
 Plug 'jacoborus/tender.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 
-" Status line
+"Status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -35,11 +37,58 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-" Syntatstic
-"Plug 'vim-syntastic/syntastic'
-
-" List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins configs
+"
+"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Denite
+"""""""""""""""""""""""""""""""""""""""""""""""
+call denite#custom#map('insert', '<Down>', 
+            \ '<denite:move_to_next_line>', 'noremap')
+
+call denite#custom#map('insert', '<Up>',
+            \ '<denite:move_to_previous_line>', 'noremap')
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" CCLS for C/C++/CUDA/OBJC
+"""""""""""""""""""""""""""""""""""""""""""""""
+let g:LanguageClient_serverCommands = {
+    \ 'c': ['ccls', '--log-file=/tmp/cc.log',
+    	\ '--init={"cacheDirectory":"/tmp/ccls/"}'],
+    \ 'cpp': ['ccls', '--log-file=/tmp/cc.log',
+    	\ '--init={"cacheDirectory":"/tmp/ccls/"}'],
+    \ 'cuda': ['ccls', '--log-file=/tmp/cc.log',
+    	\ '--init={"cacheDirectory":"/tmp/ccls/"}'],
+    \ 'objc': ['ccls', '--log-file=/tmp/cc.log',
+    	\ '--init={"cacheDirectory":"/tmp/ccls/"}'],
+    \ }
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Neosnips
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+     \ "\<Plug>(neosnippet_expand_or_jump)"
+     \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+     \ "\<Plug>(neosnippet_expand_or_jump)"
+     \: "\<TAB>"
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Cquery
+"""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR><Paste>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Configs
@@ -76,6 +125,7 @@ set wrapmargin=0    "   in newly entered text
 set showmatch
 
 set wildmenu	    " visual autocomplete for command menu
+set wildmode=longest,full
 
 " Begin of line > end of previous line
 set ww+=<,>
@@ -87,54 +137,12 @@ syntax on
 " UTF-8 encoding and en_US as default encoding/language
 set encoding=utf8
 
-" Open on line that closed
-"au BufWinLeave * mkview
-"au BufWinEnter * silent loadview
-
 " Clear highlight with space
 nnoremap <space> :noh<return><esc>
-
-" Ctrl P
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-"nnoremap <c-p> :RangerCurrentDirectory<CR>
 
 " Buffers
 set hidden
 
-" Tab related
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-let g:neosnippet#enable_completed_snippet = 1
-
-" FIle tabs navigation with arrows
-nnoremap <C-left> :tabprevious<CR>
-nnoremap <C-right>   :tabnext<CR>
-"nnoremap <C-t>     :tabnew<CR>
-inoremap <C-left> <Esc>:tabprevious<CR>i
-inoremap <C-right>   <Esc>:tabnext<CR>i
-""inoremap <C-t>     <Esc>:tabnew<CR>
-
-" Tagbar
-nmap <C-t> :TagbarToggle<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntastic
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 0
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Text and Indentation
@@ -155,7 +163,7 @@ set si " Smart indent
 set backspace=indent,eol,start
 
 filetype indent on	" enable filetype specific indentation
-
+filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Persistent Undo
@@ -175,18 +183,6 @@ set mouse=a
 " move vertically by visual line (don't skip wrapped lines)
 nnoremap j gj
 nnoremap k gk
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" YCM conf
-"""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:ycm_global_ycm_extra_conf = '$HOME/.ycm_extra_conf.py'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" Autocomplete
-"""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -217,54 +213,28 @@ let g:airline_powerline_fonts = 1
 let g:airline_base16_improved_contrast = 1
 let g:airline_theme='base16_oceanicnext'
 
-"colorscheme base16-phd
-
 
 syntax enable
 colorscheme tender
-"let g:lightline = { 'colorscheme': 'tenderplus' }
 
 " Visual Mode 
 highlight Visual guifg=#483D8B guibg=#B0C4DE 
 
-"" Menu Selected
-"highlight PmenuSel ctermfg=238 ctermbg=253
+" Menu Selected
 highlight PmenuSel guifg=#B0C4DE guibg=#483D8B
 
-"" Menu 
-"highlight Pmenu ctermfg=230 ctermbg=243
+" Menu 
 highlight Pmenu guifg=#483D8B guibg=#B0C4DE
 
-"" Error
-"highlight Search ctermfg=0 ctermbg=250
+" Pairs highlight
+highlight MatchParen gui=bold guifg=#FFFFFF
 
-"" Pairs highlight
-highlight MatchParen gui=bold guifg=#FFFFFF guibg=#061229
-
-"" Selected tab (files)
-"highlight TabLineSel ctermfg=0 ctermbg=255
-
-"" Wild menu (command 'tab' suggestions)
+" Wild menu (command 'tab' suggestions)
 highlight WildMenu guifg=#202020 guibg=#EEEEEE
 
-"" Numbers
+" Numbers
 highlight LineNr guifg=#a0a0a0
 
-""highlight Normal guibg=#061229
-""ctermbg=255
-
-"" Bad Spell
-"highlight clear SpellBad
-"highlight clear SpellCap
-"highlight clear SpellRare
-"highlight clear SpellLocal
-
-"highlight SpellBad cterm=underline ctermfg=196 ctermbg=0
-"highlight SpellCap cterm=underline ctermfg=190 ctermbg=0
-"highlight SpellRare cterm=underline 
-"highlight SpellLocal cterm=underline
-
-
-"set cursorline	" highlight current active line
-"highlight CursorLine guibg=#152039
+set cursorline	" highlight current active line
+highlight CursorLine guibg=#303030
 
