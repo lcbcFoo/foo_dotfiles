@@ -14,3 +14,16 @@ modules-right  = taskwarrior alsa battery network
 
 tray-position = right
 
+[bar/i3-bar-hdmi]
+inherit = bar/master
+
+; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
+monitor = HDMI1
+
+modules-left = menu i3
+modules-center = clock
+modules-right  = taskwarrior alsa battery network
+
+tray-position = none 
+
+

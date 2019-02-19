@@ -276,7 +276,6 @@ for_window [class="Dwarf_Fortress"] focus
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-exec_always --no-startup-id feh --bg-scale ~/Pictures/arch_blur.png
 exec --no-startup-id setxkbmap br abnt2
 exec --no-startup-id compton -b
 
@@ -285,5 +284,7 @@ exec --no-startup-id compton -b
 # Auto lock suspend, hibernate, lock-session, and unlock-session
 exec --no-startup-id xss-lock -- i3lock -n -i ~/.config/i3/lockscreen.png &
 
+exec --no-startup-id xrandr --output eDP1 --auto --output HDMI1 --auto --left-of eDP1
+exec_always --no-startup-id feh --bg-scale ~/Pictures/arch_blur.png --bg-scale ~/Pictures/cataclism2k.jpg
 # Default terminal for rofi
 exec --no-startup-id export TERMINAL=terminator

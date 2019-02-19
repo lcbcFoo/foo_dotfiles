@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-
+export PATH=$PATH:/home/foo/bin
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -18,7 +18,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="ys"
 #ZSH_THEME="fino-time"
 ZSH_THEME="aphrodite"
 
@@ -27,10 +26,14 @@ if [ -f ${HOME}/.zshrc_local ]; then
     source $HOME/.zshrc_local
 fi
 
+use_vivado(){
+    source ~/Xilinx/SDK/2018.3/settings64.sh
+}
+
 ####
 # Aliases
 ####
-#alias vim='nvim'
+alias vim='nvim'
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
