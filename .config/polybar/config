@@ -10,7 +10,7 @@ monitor = eDP1
 
 modules-left = menu i3
 modules-center = clock
-modules-right  = taskwarrior alsa battery network
+modules-right  = taskwarrior pulseaudio battery network
 
 tray-position = right
 
@@ -22,7 +22,7 @@ monitor = HDMI1
 
 modules-left = menu i3
 modules-center = clock
-modules-right  = taskwarrior alsa battery network
+modules-right  = taskwarrior pulseaudio battery network
 
 tray-position = none 
 
