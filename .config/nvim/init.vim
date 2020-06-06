@@ -21,20 +21,11 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 
-Plug 'rhysd/vim-clang-format'
-let g:clang_format#code_style='llvm'
-
-Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 
 "Plug 'vhda/verilog_systemverilog.vim'
 Plug 'antoinemadec/vim-verilog-instance'
-
-" Management
-Plug 'vimwiki/vimwiki'
-
-Plug 'wellle/visual-split.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
@@ -78,11 +69,6 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" Ctrl_space
-"""""""""""""""""""""""""""""""""""""""""""""""
-let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-
-"""""""""""""""""""""""""""""""""""""""""""""""
 " Ultisnips
 """""""""""""""""""""""""""""""""""""""""""""""
 " Trigger configuration.
@@ -92,33 +78,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
-"""""""""""""""""""""""""""""""""""""""""""""""
-" Vimwiki
-"""""""""""""""""""""""""""""""""""""""""""""""
-let g:vimwiki_hl_headers = 1
-let g:vimwiki_hl_cb_checked = 2
-let g:vimwiki_folding = 'list'
-
-function! VimwikiLinkHandler(link)
-    " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
-    "   1) [[vfile:~/Code/PythonProject/abc123.py]]
-    "   2) [[vfile:./|Wiki Home]]
-    let link = a:link
-    if link =~# '^vfile:'
-        let link = link[1:]
-    else
-        return 0
-    endif
-    let link_infos = vimwiki#base#resolve_link(link)
-    if link_infos.filename == ''
-        echomsg 'Vimwiki Error: Unable to resolve link!'
-        return 0
-    else
-        exe 'tabnew ' . fnameescape(link_infos.filename)
-        return 1
-    endif
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Configs
