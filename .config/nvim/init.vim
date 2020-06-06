@@ -1,22 +1,30 @@
-    call plug#begin('~/.config/nvim/plugins')
+call plug#begin('~/.config/nvim/plugins')
+
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'yarn install'}
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'pangloss/vim-javascript'
+Plug 'heavenshell/vim-jsdoc'
+g:jsdoc_lehre_path = '/usr/bin/lehre'
 
-" FZF
-Plug 'junegunn/fzf.vim'
-
-" Shougo crazy stuff
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim', { 'do' : ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
 
-Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'junegunn/vim-easy-align'
 
+Plug 'rhysd/vim-clang-format'
+let g:clang_format#code_style='llvm'
+
+Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 
@@ -25,20 +33,16 @@ Plug 'antoinemadec/vim-verilog-instance'
 
 " Management
 Plug 'vimwiki/vimwiki'
-"Plug 'blindFS/vim-taskwarrior'
-"Plug 'tbabej/taskwiki'
 
 Plug 'wellle/visual-split.vim'
 
-" Plug 'rhysd/vim-clang-format'
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
-let g:gutentags_project_root = ['tags']
+let g:gutentags_project_root = ['tags'] 
 let g:gutentags_ctags_extra_args = ['--extra=+q', '--fields=+i', '-n']
 
 " Colorscheme
 Plug 'chriskempson/base16-vim'
-"Plug 'jacoborus/tender.vim'
 Plug 'dracula/vim'
 
 "Status line
@@ -49,6 +53,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'tommcdo/vim-fubitive'
 
 call plug#end()
 
@@ -56,79 +61,64 @@ call plug#end()
 " Plugins configs
 "
 """""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""
-" FZF
-"""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <c-p> :FZF<CR>
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" Denite
-"""""""""""""""""""""""""""""""""""""""""""""""
-call denite#custom#map('insert', '<Down>',
-            \ '<denite:move_to_next_line>', 'noremap')
-
-call denite#custom#map('insert', '<Up>',
-            \ '<denite:move_to_previous_line>', 'noremap')
-
-"""""""""""""""""""""""""""""""""""""""""""""""
-" CCLS for C/C++/CUDA/OBJC
+" LanguageClient
 """""""""""""""""""""""""""""""""""""""""""""""
 let g:LanguageClient_serverCommands = {
-    \ 'c': ['ccls', '--log-file=/tmp/cc.log',
-        \ '--init={"cacheDirectory":"/tmp/ccls/"}'],
-    \ 'cpp': ['ccls', '--log-file=/tmp/cc.log',
-        \ '--init={"cacheDirectory":"/tmp/ccls/"}'],
-    \ 'cuda': ['ccls', '--log-file=/tmp/cc.log',
-        \ '--init={"cacheDirectory":"/tmp/ccls/"}'],
-    \ 'objc': ['ccls', '--log-file=/tmp/cc.log',
-        \ '--init={"cacheDirectory":"/tmp/ccls/"}'],
+    \ 'python': ['/usr/bin/pyls'],
+    \ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
+    \ 'typescript': ['/usr/bin/javascript-typescript-stdio']
     \ }
 
-"""""""""""""""""""""""""""""""""""""""""""""""
-" Cquery
-"""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR><Paste>
-
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" Neosnips
+" Ctrl_space
 """""""""""""""""""""""""""""""""""""""""""""""
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"      \ "\<Plug>(neosnippet_expand_or_jump)"
-"      \: pumvisible() ? "\<C-n>" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"      \ "\<Plug>(neosnippet_expand_or_jump)"
-"      \: "\<TAB>"
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" ALE
+" Ultisnips
 """""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Vimwiki
 """""""""""""""""""""""""""""""""""""""""""""""
-let g:vimwiki_hl_cb_checked=2
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'ext': '.wiki'}]
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_cb_checked = 2
+let g:vimwiki_folding = 'list'
+
+function! VimwikiLinkHandler(link)
+    " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+    "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+    "   2) [[vfile:./|Wiki Home]]
+    let link = a:link
+    if link =~# '^vfile:'
+        let link = link[1:]
+    else
+        return 0
+    endif
+    let link_infos = vimwiki#base#resolve_link(link)
+    if link_infos.filename == ''
+        echomsg 'Vimwiki Error: Unable to resolve link!'
+        return 0
+    else
+        exe 'tabnew ' . fnameescape(link_infos.filename)
+        return 1
+    endif
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Configs
@@ -137,12 +127,12 @@ let mapleader = ","
 
 " Automatically update a file if it is changed externally
 set autoread
-
+set ff=unix
 " Height of the command bar
 "set cmdheight=2
 
-set hlsearch        " highlight search matches
-set incsearch        " search while characters are entered
+set hlsearch	    " highlight search matches
+set incsearch	    " search while characters are entered
 
 " search is case-insensitive by default
 set ignorecase
@@ -150,21 +140,22 @@ set ignorecase
 " Show linenumbers
 set number
 
-set showcmd    " show last command in the bottom right
+set showcmd	" show last command in the bottom right
 
-set ruler    " always show current position
+set ruler	" always show current position
 
 " Line wrap (number of cols)
-set wrap        " wrap lines only visually
-set linebreak        " wrap only at valid characters
-set textwidth=0        " prevent vim from inserting linebreaks
+set wrap	    " wrap lines only visually
+set linebreak	    " wrap only at valid characters
+set textwidth=0	    " prevent vim from inserting linebreaks
 set wrapmargin=0    "   in newly entered text
 
+set relativenumber  " relative line number
 
 " show matching braces
 set showmatch
 
-set wildmenu        " visual autocomplete for command menu
+set wildmenu	    " visual autocomplete for command menu
 set wildmode=longest,full
 
 " Begin of line > end of previous line
@@ -182,7 +173,10 @@ nnoremap <space> :noh<return><esc>
 
 " Buffers
 set hidden
+set nocompatible
 
+" Keep 3 lines below and above the cursor
+set scrolloff=5
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Text and Indentation
@@ -203,7 +197,7 @@ set si " Smart indent
 " modern backspace behavior
 set backspace=indent,eol,start
 
-filetype indent on    " enable filetype specific indentation
+filetype indent on	" enable filetype specific indentation
 filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -238,9 +232,8 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""
 let g:gitgutter_terminal_reports_focus=0
 let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
+let g:gitgutter_eager = 1 
 set updatetime=100
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -286,3 +279,4 @@ highlight ModeMsg        guibg=bg      guifg=#7bb292 gui=NONE
 highlight MoreMsg        guibg=bg      guifg=#a8c1c5 gui=bold
 highlight Question       guibg=bg      guifg=#c5beba gui=bold
 highlight WarningMsg     guibg=bg      guifg=#d7ae38 gui=NONE
+
