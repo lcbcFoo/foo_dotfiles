@@ -1,24 +1,10 @@
 call plug#begin('~/.config/nvim/plugins')
 
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'yarn install'}
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'pangloss/vim-javascript'
-Plug 'heavenshell/vim-jsdoc'
-g:jsdoc_lehre_path = '/usr/bin/lehre'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 
 Plug 'tpope/vim-commentary'
@@ -48,41 +34,92 @@ Plug 'tommcdo/vim-fubitive'
 
 call plug#end()
 
+" Set mapping before other mappings
+let mapleader = ","
+
 """""""""""""""""""""""""""""""""""""""""""""""
 " Plugins configs
 "
 """""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""
-" LanguageClient
+" COC configs
 """""""""""""""""""""""""""""""""""""""""""""""
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['/usr/bin/pyls'],
-    \ 'javascript': ['/usr/bin/javascript-typescript-stdio'],
-    \ 'typescript': ['/usr/bin/javascript-typescript-stdio']
-    \ }
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""
-" Ultisnips
-"""""""""""""""""""""""""""""""""""""""""""""""
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <silent> rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Configs
 """""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","
 
 " Automatically update a file if it is changed externally
 set autoread
