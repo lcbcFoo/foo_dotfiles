@@ -1,9 +1,47 @@
+lua require('plugins')
+
+
 call plug#begin('~/.config/nvim/plugins')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ctrlpvim/ctrlp.vim'
+
+""""
+" Doge documentation
+Plug 'kkoomen/vim-doge'
+
+" Code format
+Plug 'sbdchd/neoformat'
+let g:neoformat_c_clangformat = {
+    \ 'exe': 'clang-format',
+    \ 'args': ['-style=file'],
+    \ }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Language Server
+"""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'neovim/nvim-lspconfig'
+
+" (Optional) Multi-entry selection UI.
+Plug 'junegunn/fzf'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+Plug 'lervag/vimtex'
+
+Plug 'blindFS/vim-taskwarrior'
+
+" File tree explorer
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" use a custom markdown style must be absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = expand('~/Documents/markdown_style.css')
+
 
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'pangloss/vim-javascript'
 
 Plug 'junegunn/vim-easy-align'
 
@@ -11,21 +49,24 @@ Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 
 "Plug 'vhda/verilog_systemverilog.vim'
-Plug 'antoinemadec/vim-verilog-instance'
+"Plug 'antoinemadec/vim-verilog-instance'
 
-Plug 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_project_root = ['tags'] 
-let g:gutentags_ctags_extra_args = ['--extra=+q', '--fields=+i', '-n']
+" Plug 'ludovicchabant/vim-gutentags'
+" set statusline+=%{gutentags#statusline()}
+" let g:gutentags_project_root = ['tags'] 
+" let g:gutentags_ctags_extra_args = ['--extra=+q', '--fields=+i', '-n']
 
 " Colorscheme
-Plug 'chriskempson/base16-vim'
 Plug 'dracula/vim'
 
-"Status line
+""""""""""""""""""""""""""""""""""""""
+" Status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 0
 
+
+"""""""""""""""""""""""""""""""""""""
 " git management plugin
 Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
@@ -42,80 +83,40 @@ let mapleader = ","
 "
 """""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""
-" COC configs
-"""""""""""""""""""""""""""""""""""""""""""""""
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Tabline
+"
+" These commands will navigate through buffers in order regardless of which mode you are using
+" e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
+nnoremap <silent>[b :BufferLineCycleNext<CR>
+nnoremap <silent>b] :BufferLineCyclePrev<CR>
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" These commands will move the current buffer backwards or forwards in the bufferline
+nnoremap <silent><mymap> :BufferLineMoveNext<CR>
+nnoremap <silent><mymap> :BufferLineMovePrev<CR>
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" These commands will sort buffers by directory, language, or a custom criteria
+nnoremap <silent>be :BufferLineSortByExtension<CR>
+nnoremap <silent>bd :BufferLineSortByDirectory<CR>
+nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+set hidden
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
 
-" Symbol renaming.
-nmap <silent> rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Configs
@@ -126,6 +127,9 @@ set autoread
 set ff=unix
 " Height of the command bar
 "set cmdheight=2
+
+" Clipboard
+" set clipboard+=unnamedplus
 
 set hlsearch	    " highlight search matches
 set incsearch	    " search while characters are entered
@@ -239,7 +243,6 @@ set updatetime=100
 "let base16colorspace=256
 set termguicolors
 " Status bar
-let g:airline#extensions#tabX8line#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_base16_improved_contrast = 1
 "let g:airline_theme='base16_oceanicnext'
