@@ -1,0 +1,278 @@
+[i3lock-debug] device = 3
+[i3lock-debug] Resource Xft.dpi not specified, skipping.
+[i3lock-debug] Using fallback for calculating DPI.
+[i3lock-debug] Using dpi = 96
+[i3lock-debug] Querying monitors using RandR 1.5
+[i3lock-debug] 1 RandR monitors found (timestamp 7210)
+[i3lock-debug] found RandR monitor: 1920 x 1080 at 0 x 0
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] device = 3
+[i3lock-debug] redraw_screen(unlock_state = 0, auth_state = 0) @ [1591740750]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740751]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l3
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740751]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740751]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l31
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740751]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l311
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l3111
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l31116
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l311162
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l3111627
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740752]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l31116279
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] current password = l311162798
+[i3lock-debug] redraw_screen(unlock_state = 2, auth_state = 0) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 1, auth_state = 0) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] redraw_screen(unlock_state = 0, auth_state = 1) @ [1591740753]
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] successfully authenticated
+[i3lock-debug] restoring focus to X11 window 0x00400007
+[i3lock-debug] device = 3
+[i3lock-debug] Resource Xft.dpi not specified, skipping.
+[i3lock-debug] Using fallback for calculating DPI.
+[i3lock-debug] Using dpi = 96
+[i3lock-debug] Querying monitors using RandR 1.5
+[i3lock-debug] 1 RandR monitors found (timestamp 7210)
+[i3lock-debug] found RandR monitor: 1920 x 1080 at 0 x 0
+[i3lock-debug] scaling_factor is 1, physical diameter is 187 px
+[i3lock-debug] scaling_factor is 1.000000, physical diameter is 187 px
+[i3lock-debug] Indicator at 960.000000x540.000000 on screen 1
+[i3lock-debug] Bar at 867.000000x447.000000 on screen 1
+[i3lock-debug] Time at 960.000000x540.000000 on screen 1
+[i3lock-debug] Date at 960.000000x570.000000 on screen 1
+[i3lock-debug] Layout at 960.000000x600.000000 on screen 1
+[i3lock-debug] Status at 960.000000x540.000000 on screen 1
+[i3lock-debug] Mod at 960.000000x568.000000 on screen 1
+[i3lock-debug] Watching window 0x01800003
+[i3lock-debug] Read event of type 18
+[i3lock-debug] UnmapNotify for 0x01800003

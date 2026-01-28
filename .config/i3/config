@@ -52,7 +52,7 @@ font pango:monospace 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -161,8 +161,6 @@ bindsym $mod+Shift+r restart
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+e exec --no-startup-id "~/.config/i3/exit.sh" 
 
-# Mod-t -> open tasks
-bindsym $mod+t "exec --no-startup-id tilda -x 1000 -y 475 -c ~/.config/i3/utils/start_nvim_TW.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -212,8 +210,8 @@ bindsym XF86AudioPrev exec playerctl previous
 
 
 # Gaps
-gaps inner 5 
-gaps outer 5
+#gaps inner 5 
+#gaps outer 5
 #gaps horizontal 2
 #gaps vertical 2
 #gaps top <px>
@@ -249,10 +247,6 @@ gaps outer 5
 for_window [class="Blueman-manager"] floating enable move absolute position 1400 700 
 for_window [class="Blueman-manager"][floating] resize set 520 380
 
-# Taskwarrior terminal
-for_window [instance="tilda"] floating enable
-for_window [instance="tilda"][floating] resize set 920 580
-
 
 # Steam
 for_window [class="^Steam$" title="^Friends$"] floating enable
@@ -274,7 +268,10 @@ for_window [class="Dwarf_Fortress"] focus
 
 # Exec
 # Polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh --docky
+# Polybar auto-hide keybinding
+bindsym $mod+b exec --no-startup-id "polybar-msg cmd toggle"
 
 exec --no-startup-id setxkbmap br abnt2
 exec --no-startup-id compton -b
@@ -282,9 +279,13 @@ exec --no-startup-id compton -b
 #exec --no-startup-id blueman-applet
 
 # Auto lock suspend, hibernate, lock-session, and unlock-session
-exec --no-startup-id xss-lock -- i3lock -n -i ~/.config/i3/lockscreen.png &
+exec_always --no-startup-id xidlehook \
+  --not-when-fullscreen \
+  --not-when-audio \
+  --timer 300 "xset dpms force off" "" \
+  --timer 300 "systemctl suspend" ""
 
-exec --no-startup-id xrandr --output eDP1 --auto --output HDMI1 --auto --left-of eDP1
+exec_always --no-startup-id ~/.config/i3/scripts/monitor_setup.sh
 exec_always --no-startup-id feh --bg-scale ~/Pictures/arch_blur.png --bg-scale ~/Pictures/cataclism2k.jpg
 # Default terminal for rofi
-exec --no-startup-id export TERMINAL=terminator
+exec --no-startup-id export TERMINAL=kitty
