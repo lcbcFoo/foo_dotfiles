@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Files
+GenericName=File Manager
+Comment=Access and organize files
+Exec=dolphin %u
+Icon=org.kde.dolphin
+Terminal=false
+StartupNotify=true
+StartupWMClass=dolphin
+Categories=Qt;KDE;System;FileTools;FileManager;
+Keywords=files;folder;manager;explore;disk;filesystem;dolphin;file manager;

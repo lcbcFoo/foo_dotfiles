@@ -1,0 +1,4 @@
+# runtime junk written by apps into symlinked config dirs
+*.log
+.alt_split_state
+*.bak-*

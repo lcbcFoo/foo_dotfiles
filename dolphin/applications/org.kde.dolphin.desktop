@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Dolphin
+GenericName=File Manager
+Comment=Manage your files
+Exec=env QT_QPA_PLATFORMTHEME=xdgdesktopportal dolphin %u
+Icon=org.kde.dolphin
+Terminal=false
+Categories=Qt;KDE;System;FileTools;FileManager;
+MimeType=inode/directory;
+Keywords=files;file management;file browsing;folder;manager;
+StartupNotify=true
+StartupWMClass=dolphin
