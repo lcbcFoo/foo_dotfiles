@@ -21,6 +21,7 @@ bluez
 bluez-utils
 blueman
 networkmanager
+upower
 brightnessctl
 playerctl
 flameshot

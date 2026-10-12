@@ -33,6 +33,7 @@
 .clock,
 .network,
 .bluetooth,
+.battery,
 .volume,
 .focused {
     margin-top: 3px;
@@ -107,7 +108,8 @@
 
 .volume,
 .network,
-.bluetooth {
+.bluetooth,
+.battery {
     padding: 0 9px;
     color: @system_soft;
 }
@@ -122,6 +124,22 @@
 
 .network {
     color: @sea_glass;
+}
+
+.battery {
+    color: @active;
+}
+
+.battery.profile-medium {
+    color: @system_soft;
+}
+
+.battery.profile-low {
+    color: @gold;
+}
+
+.battery.profile-critical {
+    color: @error;
 }
 
 .tray {
@@ -148,7 +166,8 @@
 }
 
 .popup-volume,
-.popup-clock {
+.popup-clock,
+.popup-battery {
     padding: 18px;
     border-radius: 10px;
     color: @fg;

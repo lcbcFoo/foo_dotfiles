@@ -54,6 +54,27 @@ let {
     format.not_found = "󰂲 N/A"
   }
 
+  $battery = {
+    type = "battery"
+    class = "battery"
+    show_icon = false
+    format = "󰁹 {percentage}%"
+
+    profiles = {
+      charging.when = { percent = 100 charging = true }
+      charging.format = "󰂄 {percentage}%"
+
+      medium.when = { percent = 50 charging = false }
+      medium.format = "󰁾 {percentage}%"
+
+      low.when = { percent = 20 charging = false }
+      low.format = "󰁻 {percentage}%"
+
+      critical.when = { percent = 10 charging = false }
+      critical.format = "󰂃 {percentage}%"
+    }
+  }
+
   $network = {
     type = "script"
     class = "network"
@@ -74,5 +95,5 @@ in {
 
   start = [ $workspaces $focused ]
   center = [ $clock ]
-  end = [ $volume $network $bluetooth $tray ]
+  end = [ $volume $network $bluetooth $battery $tray ]
 }
