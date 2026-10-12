@@ -3,6 +3,8 @@ kitty
 yazi
 hyprlauncher
 hyprpaper
+hyprlock
+hypridle
 mako
 hyprpolkitagent
 ironbar

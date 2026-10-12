@@ -42,6 +42,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start mako.service")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("hypridle")
 end)
 
 ------------------
@@ -169,6 +170,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
 
 -- Screenshots
