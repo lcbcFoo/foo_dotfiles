@@ -26,3 +26,4 @@ ttf-sourcecodepro-nerd
 noto-fonts
 noto-fonts-emoji
 firefox
+zsh

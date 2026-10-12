@@ -28,6 +28,8 @@ CONFIGS: dict[str, dict] = {
     "mako": {"links": [("mako", "~/.config/mako")]},
     "yazi": {"links": [("yazi", "~/.config/yazi")]},
     "scripts": {"links": [("scripts/start-audio.sh", "~/bin/start-audio.sh")]},
+    "zsh": {"links": [("zsh/zshrc", "~/.zshrc")]},
+    "hypr-login": {"links": [("zsh/hypr-login.zprofile", "~/.zprofile")]},
     "kitty": {
         "links": [("kitty", "~/.config/kitty")],
         "submodules": {"kitty/kitty-themes": "https://github.com/dexpota/kitty-themes.git"},
@@ -94,7 +96,8 @@ def rel_link(src: Path, dst: Path) -> str:
 
 def selected(names: list[str]) -> list[str]:
     if not names:
-        return list(CONFIGS)
+        # Starting a graphical session at login is an explicit opt-in.
+        return [name for name in CONFIGS if name != "hypr-login"]
     unknown = [n for n in names if n not in CONFIGS]
     if unknown:
         sys.exit(f"unknown config(s): {', '.join(unknown)} (have: {', '.join(CONFIGS)})")

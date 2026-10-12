@@ -1,7 +1,7 @@
 # foodotfiles
 
 Shared Hyprland desktop configuration, Kitty, Ironbar, Mako, Yazi, Neovim,
-Tmux, and Dolphin settings. The current Hyprland configuration is Lua and
+Zsh, Tmux, and Dolphin settings. The current Hyprland configuration is Lua and
 requires Hyprland 0.55 or newer. `hypr/hyprland.conf` is a legacy snapshot;
 it does not use the machine profiles described here.
 
@@ -28,6 +28,36 @@ and Yazi with **Super+E**. Close windows with **Super+Shift+Q**.
 The package list covers the shared session. Desktop NVIDIA drivers, Proton VPN,
 and EasyEffects are machine-specific and are not in this list. Ironbar is now
 available in Arch's `extra` repository; this desktop currently uses `ironbar-git`.
+
+## Zsh and console login
+
+The shared `.zshrc` keeps this desktop's Oh My Zsh `robbyrussell` theme, `git`
+plugin, aliases, PATH settings, and development helpers. Install Oh My Zsh
+separately if `~/.oh-my-zsh` does not exist:
+
+```sh
+git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+python foodotfiles.py install zsh --force
+chsh -s /bin/zsh
+```
+
+Log out and back in for the login shell change to apply. Development helper
+functions still require the corresponding workspace, Android SDK, or scripts.
+`~/.deepseek_token` is local and is never bundled; the config reads it only when
+it exists. Missing Oh My Zsh does not prevent the shell from starting.
+
+To start Hyprland automatically **after logging in on tty1**, explicitly install
+its Zsh login profile:
+
+```sh
+python foodotfiles.py install hypr-login --force
+```
+
+This installs `~/.zprofile`, preserving any previous file as a backup. It leaves
+SSH sessions, other consoles, and graphical terminal windows as normal shells.
+It does not bypass the LUKS or user login prompts. `hypr-login` is intentionally
+excluded from the default install/check/remove set; name it explicitly to manage
+it. Bash's `.bash_profile` is not used when your login shell is Zsh.
 
 ## Machine profiles
 

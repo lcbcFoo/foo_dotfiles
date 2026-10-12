@@ -7,3 +7,6 @@
 /hypr/machine.lua
 /ironbar/config.corn
 __pycache__/
+
+# Local shell credentials
+.deepseek_token
