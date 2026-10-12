@@ -15,8 +15,8 @@ mkdir -p ~/.config
 git clone --recurse-submodules https://github.com/lcbcFoo/foo_dotfiles.git ~/.config/foodotfiles
 cd ~/.config/foodotfiles
 sudo pacman -S --needed $(cat packages/desktop.txt) mesa vulkan-intel sof-firmware
-python foodotfiles.py install hypr kitty ironbar mako yazi --profile yoga --force
-python foodotfiles.py check hypr kitty ironbar mako yazi
+python foodotfiles.py install hypr kitty ironbar mako yazi nvim --profile yoga --force
+python foodotfiles.py check hypr kitty ironbar mako yazi nvim
 ```
 
 `--force` moves existing configs to timestamped backups before linking them.
@@ -28,6 +28,47 @@ and Yazi with **Super+E**. Close windows with **Super+Shift+Q**.
 The package list covers the shared session. Desktop NVIDIA drivers, Proton VPN,
 and EasyEffects are machine-specific and are not in this list. Ironbar is now
 available in Arch's `extra` repository; this desktop currently uses `ironbar-git`.
+
+## Neovim
+
+The package list includes Neovim, LazyVim's search/parser dependencies, a compiler,
+clipboard support, and Node/npm for language-server tooling. Install the tracked
+config as your regular user:
+
+```sh
+python foodotfiles.py install nvim --force
+nvim
+```
+
+On the first launch, lazy.nvim downloads the plugins. Use `:Lazy restore` to
+restore the versions recorded in `nvim/lazy-lock.json`, then `:checkhealth` to
+inspect any remaining tool requirements. Avoid `:Lazy sync` when reproducing the
+lockfile: sync updates plugins and rewrites it.
+
+The Minuet AI completion config expects a llama.cpp server on `127.0.0.1:8012`.
+That server and its model are not part of the dotfiles installation.
+
+## Yay and AUR packages
+
+Official repository packages are in `packages/desktop.txt`; AUR packages are in
+`packages/aur.txt`. The AUR list currently contains `yay`. Bootstrap it once using
+[the upstream installation instructions](https://github.com/Jguer/yay#installation),
+as your regular user:
+
+```sh
+sudo pacman -S --needed git base-devel
+mkdir -p ~/.cache/foodotfiles-build
+cd ~/.cache/foodotfiles-build
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+Once Yay is installed, the AUR list can be applied from the dotfiles directory:
+
+```sh
+yay -S --needed $(cat packages/aur.txt)
+```
 
 ## Zsh and console login
 

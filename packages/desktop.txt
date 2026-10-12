@@ -27,3 +27,15 @@ noto-fonts
 noto-fonts-emoji
 firefox
 zsh
+neovim
+ripgrep
+fd
+fzf
+tree-sitter-cli
+base-devel
+curl
+unzip
+nodejs
+npm
+wl-clipboard
+lazygit
