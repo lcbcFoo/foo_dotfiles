@@ -24,6 +24,10 @@ HOME = Path.home()
 # name -> sources are relative to the repo, targets are absolute-ish (~ expanded)
 CONFIGS: dict[str, dict] = {
     "hypr": {"links": [("hypr", "~/.config/hypr")]},
+    "ironbar": {"links": [("ironbar", "~/.config/ironbar")]},
+    "mako": {"links": [("mako", "~/.config/mako")]},
+    "yazi": {"links": [("yazi", "~/.config/yazi")]},
+    "scripts": {"links": [("scripts/start-audio.sh", "~/bin/start-audio.sh")]},
     "kitty": {
         "links": [("kitty", "~/.config/kitty")],
         "submodules": {"kitty/kitty-themes": "https://github.com/dexpota/kitty-themes.git"},
@@ -40,6 +44,33 @@ CONFIGS: dict[str, dict] = {
         ]
     },
 }
+
+PROFILES = {
+    "hypr": ("hypr/profiles/{profile}.lua", "hypr/machine.lua"),
+    "ironbar": ("ironbar/profiles/{profile}.corn", "ironbar/config.corn"),
+}
+
+
+def configure_profiles(names: list[str], profile: str | None) -> None:
+    for name in names:
+        if name not in PROFILES:
+            continue
+        pattern, local = PROFILES[name]
+        dst = REPO / local
+        # Keep an existing selection unless the caller explicitly chooses one.
+        if profile is None and dst.exists():
+            continue
+        src = REPO / pattern.format(profile=profile or "yoga")
+        if not src.exists():
+            sys.exit(f"missing profile: {src}")
+        if dst.exists() and not dst.is_symlink():
+            backup = dst.with_name(f"{dst.name}.bak-{time.time_ns()}")
+            shutil.move(str(dst), str(backup))
+            print(f"{name}: saved local profile as {backup.name}")
+        elif dst.is_symlink():
+            dst.unlink()
+        dst.symlink_to(os.path.relpath(src, dst.parent))
+        print(f"{name}: profile {profile or 'yoga'}")
 
 OK, MISSING, FOREIGN, BROKEN_SOURCE = "ok", "missing", "foreign", "no-source"
 
@@ -143,6 +174,16 @@ def do_check(names: list[str]) -> int:
             if "MISSING" in line:
                 pending += 1
             print(line)
+        if name in PROFILES:
+            pattern, local = PROFILES[name]
+            selection = REPO / local
+            expected = {(REPO / pattern.format(profile=p)).resolve()
+                        for p in ("desktop", "yoga")}
+            if selection.is_symlink() and selection.exists() and selection.resolve() in expected:
+                print(f"  profile: {selection.resolve().stem}")
+            else:
+                pending += 1
+                print("  profile: missing or unmanaged")
     print(f"\n{'all configs installed' if not pending else f'{pending} item(s) not installed'}")
     return 1 if pending else 0
 
@@ -153,10 +194,15 @@ def main() -> int:
     p.add_argument("command", choices=["install", "rm", "check"])
     p.add_argument("names", nargs="*", help=f"configs to act on (default: all — {', '.join(CONFIGS)})")
     p.add_argument("--force", action="store_true", help="install: back up existing files instead of refusing")
+    p.add_argument("--profile", choices=["desktop", "yoga"],
+                   help="install: select machine settings (new installs default to yoga)")
     a = p.parse_args()
     names = selected(a.names)
     if a.command == "install":
+        configure_profiles(names, a.profile)
         return 1 if do_install(names, a.force) else 0
+    if a.profile:
+        p.error("--profile is only supported by install")
     if a.command == "rm":
         return do_rm(names)
     return do_check(names)

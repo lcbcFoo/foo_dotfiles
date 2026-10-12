@@ -1,0 +1,330 @@
+@define-color bar_bg rgba(27, 27, 29, 0.96);
+@define-color bg #212121;
+@define-color surface #252529;
+@define-color surface_high #2d2b32;
+@define-color popup #28272c;
+@define-color fg #f0ebe8;
+@define-color fg_dim #bbb4ba;
+@define-color quiet #858289;
+@define-color line #66636e;
+@define-color system #8fa8bd;
+@define-color system_soft #9eafb0;
+@define-color active #b6ff5c;
+@define-color cyan #5dffe9;
+@define-color gold #ffc95c;
+@define-color sea_glass #86aaa4;
+@define-color coral #ff7f73;
+@define-color error #ff5268;
+
+.container {
+    font-family: "SauceCodePro Nerd Font", "Symbols Nerd Font", sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    color: @fg_dim;
+}
+
+.background {
+    background-color: @bar_bg;
+    border-top: 1px solid @surface_high;
+}
+
+.workspaces,
+.tray,
+.clock,
+.network,
+.bluetooth,
+.volume,
+.focused {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 6px;
+    border-radius: 8px;
+    background: @surface;
+    border: 1px solid @surface_high;
+    opacity: 1;
+    box-shadow: none;
+}
+
+.workspaces {
+    padding: 2px 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    background: @surface;
+}
+
+.workspaces .item {
+    min-width: 26px;
+    padding: 1px 7px;
+    margin: 0 2px;
+    border-radius: 7px;
+    border: 0;
+    color: @quiet;
+    background: transparent;
+    transition: all 150ms ease-in-out;
+    box-shadow: none;
+}
+
+.workspaces .item.focused {
+    min-width: 30px;
+    color: @bg;
+    background: @active;
+    font-weight: bold;
+}
+
+.workspaces .item.visible:not(.focused) {
+    color: @fg_dim;
+    background: @surface_high;
+}
+
+.workspaces .item.inactive {
+    color: @quiet;
+    background: transparent;
+}
+
+.workspaces .item:hover {
+    color: @fg;
+    background: @surface_high;
+}
+
+.focused {
+    min-width: 120px;
+    margin-left: 0;
+    padding: 0 10px;
+    color: @fg;
+}
+
+.focused image {
+    margin-right: 6px;
+    -gtk-icon-shadow: none;
+}
+
+.clock {
+    padding: 0 12px 1px;
+    color: @system;
+    font-weight: bold;
+}
+
+.volume,
+.network,
+.bluetooth {
+    padding: 0 9px;
+    color: @system_soft;
+}
+
+.volume {
+    color: @system;
+}
+
+.bluetooth {
+    color: @cyan;
+}
+
+.network {
+    color: @sea_glass;
+}
+
+.tray {
+    margin-left: 0;
+    margin-right: 10px;
+    padding: 1px 5px;
+}
+
+.tray .item {
+    padding: 2px 5px;
+    margin: 0 1px;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 150ms ease-in-out;
+    box-shadow: none;
+}
+
+.tray .item:hover {
+    background: @surface_high;
+}
+
+.tray .item.urgent {
+    background: rgba(255, 82, 104, 0.18);
+}
+
+.popup-volume,
+.popup-clock {
+    padding: 18px;
+    border-radius: 10px;
+    color: @fg;
+    background: @popup;
+    border: 2px solid @system;
+    box-shadow: rgba(0, 0, 0, 0.45) 1px 2px 6px;
+}
+
+.popup-volume .device-box,
+.popup-volume .apps-box .app-box {
+    padding: 8px 10px;
+    margin: 6px 0;
+    border-radius: 8px;
+    background: @surface;
+}
+
+.popup-volume .device-box .device-selector {
+    color: @fg;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.popup-volume .device-box .slider,
+.popup-volume .apps-box .app-box .slider {
+    margin: 6px 0;
+}
+
+.popup-volume scale {
+    min-height: 10px;
+    min-width: 140px;
+}
+
+.popup-volume scale trough {
+    min-height: 10px;
+    border-radius: 999px;
+    background: @surface_high;
+}
+
+.popup-volume scale highlight {
+    border-radius: 999px;
+    background: @system;
+}
+
+.popup-volume scale slider {
+    min-width: 14px;
+    min-height: 14px;
+    margin: -4px 0;
+    border-radius: 999px;
+    background: @fg;
+    border: 0;
+}
+
+.popup-volume .device-box .btn-mute,
+.popup-volume .apps-box .app-box .btn-mute {
+    padding: 4px 8px;
+    border-radius: 7px;
+    background: @surface_high;
+    color: @fg_dim;
+    border: 0;
+    box-shadow: none;
+}
+
+.popup-volume .device-box .btn-mute:hover,
+.popup-volume .apps-box .app-box .btn-mute:hover {
+    color: @bg;
+    background: @system;
+}
+
+.popup-volume .apps-box .app-box .title {
+    color: @fg;
+}
+
+.popup-clock {
+    font-weight: bold;
+}
+
+.popup-clock .calendar-clock {
+    color: @system;
+    padding-bottom: 0.1em;
+}
+
+.popup-clock .calendar {
+    color: @fg;
+    background: @popup;
+    border-radius: 8px;
+}
+
+.popup-clock .calendar .header {
+    padding-top: 1em;
+    border-top: 1px solid @surface_high;
+    font-size: 1.35em;
+}
+
+.popup-clock .calendar:selected {
+    color: @bg;
+    background: @system;
+}
+
+tooltip.background {
+    padding: 4px;
+    border-radius: 8px;
+    color: @fg;
+    background: rgba(27, 27, 29, 0.98);
+    border: 1px solid @system;
+    font-size: 13px;
+}
+
+tooltip * {
+    color: @fg;
+    background: transparent;
+}
+
+/* ironbar-gpu-top module ------------------------------------------------- */
+
+.ironbar-gpu-top {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 6px;
+    border-radius: 8px;
+    background: @surface;
+    border: 1px solid @surface_high;
+}
+
+.ironbar-gpu-top .gpu-top-summary {
+    padding: 0 10px;
+    color: @system_soft;
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    box-shadow: none;
+}
+
+.ironbar-gpu-top .gpu-top-summary:hover {
+    background: @surface_high;
+}
+
+.popup-custom {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.gpu-top-popup-card {
+    min-width: 470px;
+    padding: 14px;
+    color: @fg;
+    background: @popup;
+    border: 1px solid @system;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.45) 1px 2px 8px;
+}
+
+.gpu-top-title {
+    padding: 2px 4px 10px;
+    margin-bottom: 2px;
+    color: @system;
+    border-bottom: 1px solid @surface_high;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.gpu-top-device,
+.gpu-top-ram {
+    min-width: 430px;
+    padding: 11px 13px;
+    margin-top: 8px;
+    color: @fg_dim;
+    background: @surface;
+    border: 1px solid @surface_high;
+    border-radius: 8px;
+    font-family: "SauceCodePro Nerd Font Mono", "Symbols Nerd Font Mono", monospace;
+    font-size: 13px;
+}
+
+.gpu-top-ram {
+    margin-top: 10px;
+}

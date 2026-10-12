@@ -2,3 +2,8 @@
 *.log
 .alt_split_state
 *.bak-*
+
+# Local profile selections
+/hypr/machine.lua
+/ironbar/config.corn
+__pycache__/

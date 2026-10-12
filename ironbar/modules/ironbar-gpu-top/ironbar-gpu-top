@@ -1,0 +1,299 @@
+#!/bin/sh
+
+# ironbar-gpu-top: a compact NVIDIA + system-memory monitor for Ironbar.
+# The `sample` command is the sole GPU poller; popup renderers read its cache.
+
+set -eu
+
+normal_color="${IRONBAR_GPU_TOP_NORMAL_COLOR:-#9eafb0}"
+accent_color="${IRONBAR_GPU_TOP_ACCENT_COLOR:-#8fa8bd}"
+quiet_color="${IRONBAR_GPU_TOP_QUIET_COLOR:-#66636e}"
+warm_color="${IRONBAR_GPU_TOP_WARM_COLOR:-#ffc95c}"
+hot_color="${IRONBAR_GPU_TOP_HOT_COLOR:-#ff5268}"
+
+state_root="${XDG_RUNTIME_DIR:-/tmp}/ironbar-gpu-top-$(id -u)"
+snapshot_file="$state_root/snapshot"
+history_file="$state_root/history"
+mkdir -p "$state_root"
+umask 077
+
+resolve_icons() {
+    requested=${IRONBAR_GPU_TOP_ICONS:-auto}
+    case "$requested" in
+        nerd|text)
+            icon_mode=$requested
+            ;;
+        auto)
+            icon_cache="$state_root/icon-mode"
+            if [ -s "$icon_cache" ]; then
+                icon_mode=$(sed -n '1p' "$icon_cache")
+            elif command -v fc-list >/dev/null 2>&1 \
+                && fc-list : family 2>/dev/null | grep -Eiq 'Nerd Font|Symbols Nerd Font'; then
+                icon_mode=nerd
+                printf '%s\n' "$icon_mode" > "$icon_cache"
+            else
+                icon_mode=text
+                printf '%s\n' "$icon_mode" > "$icon_cache"
+            fi
+            ;;
+        *)
+            icon_mode=text
+            ;;
+    esac
+
+    if [ "$icon_mode" = nerd ]; then
+        gpu_label='󰢮'
+        vram_label='󰘚'
+        temp_label='󰔏'
+        ram_label='󰍛'
+        device_prefix="$gpu_label  "
+        ram_prefix="$ram_label  "
+    else
+        gpu_label='GPU'
+        vram_label='VRAM'
+        temp_label='TEMP'
+        ram_label='RAM'
+        device_prefix=''
+        ram_prefix=''
+    fi
+}
+
+resolve_icons
+
+color_for_percent() {
+    value=$1
+    if [ "$value" -ge 90 ]; then
+        printf '%s' "$hot_color"
+    elif [ "$value" -ge 75 ]; then
+        printf '%s' "$warm_color"
+    else
+        printf '%s' "$normal_color"
+    fi
+}
+
+color_for_temp() {
+    value=$1
+    if [ "$value" -ge 85 ]; then
+        printf '%s' "$hot_color"
+    elif [ "$value" -ge 72 ]; then
+        printf '%s' "$warm_color"
+    else
+        printf '%s' "$normal_color"
+    fi
+}
+
+percent_of() {
+    awk -v used="$1" -v total="$2" 'BEGIN {
+        if (total <= 0) print 0; else printf "%.0f", used * 100 / total
+    }'
+}
+
+gib() {
+    awk -v mib="$1" 'BEGIN { printf "%.1f", mib / 1024 }'
+}
+
+trim_history() {
+    awk -F, '{
+        first = NF > 32 ? NF - 31 : 1
+        for (i = first; i <= NF; i++) {
+            if (i > first) printf ","
+            printf "%s", $i
+        }
+    }'
+}
+
+sparkline() {
+    series=$1
+    count=$(printf '%s' "$series" | awk -F, '{ print NF }')
+    pad=$((32 - count))
+    while [ "$pad" -gt 0 ]; do
+        printf '▁'
+        pad=$((pad - 1))
+    done
+
+    old_ifs=$IFS
+    IFS=,
+    for value in $series; do
+        case $((value / 13)) in
+            0) printf '▁' ;;
+            1) printf '▂' ;;
+            2) printf '▃' ;;
+            3) printf '▄' ;;
+            4) printf '▅' ;;
+            5) printf '▆' ;;
+            6) printf '▇' ;;
+            *) printf '▇' ;;
+        esac
+    done
+    IFS=$old_ifs
+}
+
+progress_bar() {
+    percent=$1
+    color=$2
+    width=18
+    filled=$((percent * width / 100))
+    if [ "$percent" -gt 0 ] && [ "$filled" -eq 0 ]; then
+        filled=1
+    fi
+    empty=$((width - filled))
+
+    printf '<span foreground="%s">' "$color"
+    while [ "$filled" -gt 0 ]; do
+        printf '━'
+        filled=$((filled - 1))
+    done
+    printf '</span><span foreground="%s">' "$quiet_color"
+    while [ "$empty" -gt 0 ]; do
+        printf '─'
+        empty=$((empty - 1))
+    done
+    printf '</span>'
+}
+
+sample() {
+    raw=$(nvidia-smi \
+        --query-gpu=index,name,utilization.gpu,memory.used,memory.total,temperature.gpu \
+        --format=csv,noheader,nounits 2>/dev/null || true)
+
+    if [ -z "$raw" ]; then
+        printf '<span foreground="%s">%s unavailable</span>\n' "$hot_color" "$gpu_label"
+        exit 0
+    fi
+
+    gpu_rows=$(printf '%s\n' "$raw" | awk -F ',[[:space:]]*' '{
+        name = $2
+        sub(/^NVIDIA GeForce /, "", name)
+        printf "GPU|%s|%s|%s|%s|%s|%s\n", $1, name, $3, $4, $5, $6
+    }')
+
+    ram_values=$(awk '
+        /^MemTotal:/ { total = $2 }
+        /^MemAvailable:/ { available = $2 }
+        END { printf "%.0f|%.0f", (total - available) / 1024, total / 1024 }
+    ' /proc/meminfo)
+
+    snapshot_tmp="$state_root/snapshot.new"
+    {
+        printf '%s\n' "$gpu_rows"
+        printf 'RAM|%s\n' "$ram_values"
+    } > "$snapshot_tmp"
+    mv "$snapshot_tmp" "$snapshot_file"
+
+    history_tmp="$state_root/history.new"
+    : > "$history_tmp"
+    printf '%s\n' "$gpu_rows" | while IFS='|' read -r kind index name util used total temp; do
+        previous=""
+        if [ -f "$history_file" ]; then
+            previous=$(awk -F'|' -v wanted="$index" '$1 == wanted { print $2 }' "$history_file")
+        fi
+        if [ -n "$previous" ]; then
+            series="$previous,$util"
+        else
+            series="$util"
+        fi
+        series=$(printf '%s' "$series" | trim_history)
+        printf '%s|%s\n' "$index" "$series" >> "$history_tmp"
+    done
+    mv "$history_tmp" "$history_file"
+
+    summary=$(printf '%s\n' "$gpu_rows" | awk -F'|' '
+        BEGIN { max_util = 0; max_vram = 0; max_temp = 0 }
+        $1 == "GPU" {
+            if ($4 > max_util) max_util = $4
+            if ($7 > max_temp) max_temp = $7
+            vram = $6 > 0 ? int(($5 * 100 / $6) + 0.5) : 0
+            if (vram > max_vram) max_vram = vram
+        }
+        END { printf "%d|%d|%d", max_util, max_vram, max_temp }
+    ')
+    IFS='|' read -r max_util vram_percent max_temp <<EOF
+$summary
+EOF
+    IFS='|' read -r ram_used ram_total <<EOF
+$ram_values
+EOF
+
+    ram_percent=$(percent_of "$ram_used" "$ram_total")
+    util_color=$(color_for_percent "$max_util")
+    vram_color=$(color_for_percent "$vram_percent")
+    temp_color=$(color_for_temp "$max_temp")
+    ram_color=$(color_for_percent "$ram_percent")
+
+    printf '<span foreground="%s">%s</span> ' "$accent_color" "$gpu_label"
+    printf '<span foreground="%s">%s%%</span>' "$util_color" "$max_util"
+    printf ' <span foreground="%s">·</span> ' "$quiet_color"
+    printf '<span foreground="%s">%s %s%%</span>' "$vram_color" "$vram_label" "$vram_percent"
+    printf ' <span foreground="%s">·</span> ' "$quiet_color"
+    printf '<span foreground="%s">%s %s°</span>' "$temp_color" "$temp_label" "$max_temp"
+    printf ' <span foreground="%s">·</span> ' "$quiet_color"
+    printf '<span foreground="%s">%s %s%%</span>\n' "$ram_color" "$ram_label" "$ram_percent"
+}
+
+device() {
+    wanted=$1
+    if [ ! -s "$snapshot_file" ]; then
+        printf '<span foreground="%s">Waiting for the first sample…</span>\n' "$normal_color"
+        exit 0
+    fi
+
+    row=$(awk -F'|' -v wanted="$wanted" '$1 == "GPU" && $2 == wanted { print; exit }' "$snapshot_file")
+    if [ -z "$row" ]; then
+        printf '<span foreground="%s">GPU %s unavailable</span>\n' "$hot_color" "$wanted"
+        exit 0
+    fi
+
+    IFS='|' read -r kind index name util used total temp <<EOF
+$row
+EOF
+    vram_percent=$(percent_of "$used" "$total")
+    util_color=$(color_for_percent "$util")
+    vram_color=$(color_for_percent "$vram_percent")
+    temp_color=$(color_for_temp "$temp")
+    series=$(awk -F'|' -v wanted="$index" '$1 == wanted { print $2 }' "$history_file" 2>/dev/null || true)
+    [ -n "$series" ] || series=0
+    graph=$(sparkline "$series")
+    graph_color=$accent_color
+    if [ "$util" -ge 75 ]; then
+        graph_color=$util_color
+    fi
+    vram_bar=$(progress_bar "$vram_percent" "$vram_color")
+
+    printf '<span foreground="%s"><b>%sGPU %s</b></span>  <span foreground="%s">%-10s</span>  ' \
+        "$accent_color" "$device_prefix" "$index" "$normal_color" "$name"
+    printf '<span foreground="%s"><b>%3s%%</b></span>  <span foreground="%s">%s %s°</span>\n' \
+        "$util_color" "$util" "$temp_color" "$temp_label" "$temp"
+    printf '<span foreground="%s">60s</span> <span foreground="%s">%s</span> <span foreground="%s">now</span>\n' \
+        "$quiet_color" "$graph_color" "$graph" "$quiet_color"
+    printf '<span foreground="%s">%s</span>  <span foreground="%s">%s / %s GiB</span>  %s  <span foreground="%s">%s%%</span>\n' \
+        "$quiet_color" "$vram_label" "$vram_color" "$(gib "$used")" "$(gib "$total")" "$vram_bar" "$vram_color" "$vram_percent"
+}
+
+ram_panel() {
+    if [ ! -s "$snapshot_file" ]; then
+        printf '<span foreground="%s">Waiting for the first sample…</span>\n' "$normal_color"
+        exit 0
+    fi
+
+    row=$(awk -F'|' '$1 == "RAM" { print; exit }' "$snapshot_file")
+    IFS='|' read -r kind used total <<EOF
+$row
+EOF
+    ram_percent=$(percent_of "$used" "$total")
+    ram_color=$(color_for_percent "$ram_percent")
+    ram_bar=$(progress_bar "$ram_percent" "$ram_color")
+
+    printf '<span foreground="%s"><b>%sSYSTEM RAM</b></span>  ' "$accent_color" "$ram_prefix"
+    printf '<span foreground="%s">%s / %s GiB</span>  %s  <span foreground="%s">%s%%</span>\n' \
+        "$ram_color" "$(gib "$used")" "$(gib "$total")" "$ram_bar" "$ram_color" "$ram_percent"
+}
+
+case "${1:-sample}" in
+    sample) sample ;;
+    device) device "${2:?GPU index required}" ;;
+    ram) ram_panel ;;
+    *)
+        printf 'usage: %s [sample|device INDEX|ram]\n' "$0" >&2
+        exit 2
+        ;;
+esac

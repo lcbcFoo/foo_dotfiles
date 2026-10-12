@@ -4,10 +4,6 @@
 -- Environment variables
 -------------------------------
 
--- NVIDIA / Wayland
-hl.env("LIBVA_DRIVER_NAME", "nvidia")
-hl.env("GBM_BACKEND", "nvidia-drm")
-hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
@@ -21,36 +17,17 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("QT_QPA_PLATFORMTHEME", "xdgdesktopportal")
 
 ------------------
--- Monitors
+-- Machine profile
 ------------------
 
-hl.monitor({
-    output = "DP-1",
-    mode = "3440x1440@59.97",
-    position = "0x0",
-    scale = 1.0,
-})
-
-hl.monitor({
-    output = "DP-3",
-    mode = "3440x1440@59.97",
-    position = "0x0",
-    scale = 1.0,
-})
-
-hl.monitor({
-    output = "HDMI-A-1",
-    mode = "1920x1080@60.00",
-    position = "3440x0",
-    scale = 1.0,
-})
-
-hl.monitor({
-    output = "",
-    mode = "preferred",
-    position = "auto",
-    scale = "auto",
-})
+local machine = os.getenv("HOME") .. "/.config/hypr/machine.lua"
+local f = io.open(machine, "r")
+if f then
+    f:close()
+    dofile(machine)
+else
+    dofile(os.getenv("HOME") .. "/.config/hypr/profiles/yoga.lua")
+end
 
 ------------------
 -- Programs and autostart
@@ -65,8 +42,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start mako.service")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("hyprpaper")
-    hl.exec_cmd("/usr/bin/protonvpn-app")
-    hl.exec_cmd("~/bin/start-audio.sh")
 end)
 
 ------------------

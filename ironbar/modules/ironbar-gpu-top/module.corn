@@ -1,0 +1,49 @@
+// Copy this definition into the `let` block of your Ironbar config,
+// then add `$gpu_top` to the desired start/center/end array.
+$gpu_top = {
+  type = "custom"
+  name = "ironbar-gpu-top"
+  class = "ironbar-gpu-top"
+  bar = [
+    {
+      type = "button"
+      class = "gpu-top-summary"
+      label = "{{2000:~/.config/ironbar/modules/ironbar-gpu-top/ironbar-gpu-top sample}}"
+      on_click = "popup:toggle"
+    }
+  ]
+  popup = [
+    {
+      type = "box"
+      class = "gpu-top-popup-card"
+      orientation = "vertical"
+      widgets = [
+        {
+          type = "label"
+          class = "gpu-top-title"
+          label = "GPU MONITOR  ·  2 DEVICES  ·  60s HISTORY"
+          justify = "left"
+        }
+        {
+          type = "label"
+          class = "gpu-top-device"
+          label = "{{1000:~/.config/ironbar/modules/ironbar-gpu-top/ironbar-gpu-top device 0}}"
+          justify = "left"
+        }
+        {
+          type = "label"
+          class = "gpu-top-device"
+          label = "{{1000:~/.config/ironbar/modules/ironbar-gpu-top/ironbar-gpu-top device 1}}"
+          justify = "left"
+        }
+        {
+          type = "label"
+          class = "gpu-top-ram"
+          label = "{{1000:~/.config/ironbar/modules/ironbar-gpu-top/ironbar-gpu-top ram}}"
+          justify = "left"
+        }
+      ]
+    }
+  ]
+  tooltip = "Busiest GPU · fullest VRAM · hottest GPU · system RAM"
+}

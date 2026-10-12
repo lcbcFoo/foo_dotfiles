@@ -1,0 +1,66 @@
+/* ironbar-gpu-top — self-contained Foocolors defaults. */
+@define-color gpu_top_surface #252529;
+@define-color gpu_top_surface_high #2d2b32;
+@define-color gpu_top_popup #28272c;
+@define-color gpu_top_fg #f0ebe8;
+@define-color gpu_top_fg_dim #bbb4ba;
+@define-color gpu_top_system #8fa8bd;
+@define-color gpu_top_system_soft #9eafb0;
+
+.ironbar-gpu-top {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 6px;
+    border-radius: 8px;
+    background: @gpu_top_surface;
+    border: 1px solid @gpu_top_surface_high;
+}
+
+.ironbar-gpu-top .gpu-top-summary {
+    padding: 0 10px;
+    color: @gpu_top_system_soft;
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    box-shadow: none;
+}
+
+.ironbar-gpu-top .gpu-top-summary:hover {
+    background: @gpu_top_surface_high;
+}
+
+.gpu-top-popup-card {
+    min-width: 470px;
+    padding: 14px;
+    color: @gpu_top_fg;
+    background: @gpu_top_popup;
+    border: 1px solid @gpu_top_system;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.45) 1px 2px 8px;
+}
+
+.gpu-top-title {
+    padding: 2px 4px 10px;
+    margin-bottom: 2px;
+    color: @gpu_top_system;
+    border-bottom: 1px solid @gpu_top_surface_high;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.gpu-top-device,
+.gpu-top-ram {
+    min-width: 430px;
+    padding: 11px 13px;
+    margin-top: 8px;
+    color: @gpu_top_fg_dim;
+    background: @gpu_top_surface;
+    border: 1px solid @gpu_top_surface_high;
+    border-radius: 8px;
+    font-family: "SauceCodePro Nerd Font Mono", "Symbols Nerd Font Mono", monospace;
+    font-size: 13px;
+}
+
+.gpu-top-ram {
+    margin-top: 10px;
+}

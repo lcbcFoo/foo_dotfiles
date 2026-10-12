@@ -1,0 +1,96 @@
+# Catppuccin Mocha, matched to Kitty with stronger selection and button contrast.
+[app]
+overall = { bg = "#1E1E2E" }
+
+[mgr]
+cwd = { fg = "#89B4FA", bold = true }
+find_keyword = { fg = "#1E1E2E", bg = "#F9E2AF", bold = true }
+find_position = { fg = "#A6ADC8" }
+symlink_target = { fg = "#94E2D5" }
+marker_copied = { fg = "#A6E3A1", bg = "#313244" }
+marker_cut = { fg = "#F9E2AF", bg = "#313244" }
+marker_marked = { fg = "#CBA6F7", bg = "#313244" }
+marker_selected = { fg = "#1E1E2E", bg = "#89B4FA", bold = true }
+count_copied = { fg = "#1E1E2E", bg = "#A6E3A1", bold = true }
+count_cut = { fg = "#1E1E2E", bg = "#F9E2AF", bold = true }
+count_selected = { fg = "#1E1E2E", bg = "#89B4FA", bold = true }
+border_style = { fg = "#585B70" }
+
+[indicator]
+parent = { fg = "#CDD6F4", bg = "#45475A", bold = true }
+current = { fg = "#1E1E2E", bg = "#89B4FA", bold = true }
+preview = { fg = "#CDD6F4", bg = "#313244", bold = true }
+
+[tabs]
+active = { fg = "#1E1E2E", bg = "#A6E3A1", bold = true }
+inactive = { fg = "#CDD6F4", bg = "#313244" }
+
+[mode]
+normal_main = { fg = "#1E1E2E", bg = "#89B4FA", bold = true }
+normal_alt = { fg = "#CDD6F4", bg = "#313244" }
+select_main = { fg = "#1E1E2E", bg = "#F9E2AF", bold = true }
+select_alt = { fg = "#CDD6F4", bg = "#45475A" }
+unset_main = { fg = "#1E1E2E", bg = "#F38BA8", bold = true }
+unset_alt = { fg = "#CDD6F4", bg = "#45475A" }
+
+[status]
+overall = { fg = "#CDD6F4", bg = "#313244" }
+perm_type = { fg = "#89B4FA" }
+perm_read = { fg = "#A6E3A1" }
+perm_write = { fg = "#F9E2AF" }
+perm_exec = { fg = "#F38BA8" }
+progress_label = { fg = "#CDD6F4", bold = true }
+progress_normal = { fg = "#89B4FA", bg = "#45475A" }
+progress_error = { fg = "#F38BA8", bg = "#45475A" }
+
+[which]
+mask = { bg = "#11111B" }
+cand = { fg = "#89B4FA", bold = true }
+rest = { fg = "#CDD6F4" }
+desc = { fg = "#A6ADC8" }
+separator_style = { fg = "#585B70" }
+
+[confirm]
+border = { fg = "#89B4FA" }
+title = { fg = "#89B4FA", bold = true }
+body = { fg = "#CDD6F4" }
+list = { fg = "#CDD6F4" }
+btn_yes = { fg = "#1E1E2E", bg = "#A6E3A1", bold = true }
+btn_no = { fg = "#1E1E2E", bg = "#F38BA8", bold = true }
+
+[input]
+border = { fg = "#89B4FA" }
+title = { fg = "#89B4FA", bold = true }
+value = { fg = "#CDD6F4" }
+selected = { fg = "#1E1E2E", bg = "#F9E2AF", bold = true }
+
+[pick]
+border = { fg = "#89B4FA" }
+active = { fg = "#1E1E2E", bg = "#89B4FA", bold = true }
+inactive = { fg = "#CDD6F4" }
+
+[cmp]
+border = { fg = "#89B4FA" }
+active = { fg = "#1E1E2E", bg = "#89B4FA", bold = true }
+inactive = { fg = "#CDD6F4" }
+
+[tasks]
+border = { fg = "#89B4FA" }
+title = { fg = "#89B4FA", bold = true }
+hovered = { fg = "#1E1E2E", bg = "#F9E2AF", bold = true }
+
+[help]
+on = { fg = "#89B4FA", bold = true }
+run = { fg = "#A6E3A1" }
+desc = { fg = "#CDD6F4" }
+hovered = { fg = "#1E1E2E", bg = "#F9E2AF", bold = true }
+footer = { fg = "#A6ADC8", bg = "#313244" }
+
+[filetype]
+rules = [
+  { mime = "image/*", fg = "#F9E2AF" },
+  { mime = "{audio,video}/*", fg = "#CBA6F7" },
+  { mime = "inode/empty", fg = "#94E2D5" },
+  { url = "*", is = "orphan", fg = "#F38BA8" },
+  { url = "*/", fg = "#89B4FA" },
+]

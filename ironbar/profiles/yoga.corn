@@ -1,0 +1,78 @@
+let {
+  $workspaces = {
+    type = "workspaces"
+    class = "workspaces"
+    all_monitors = false
+    sort = "label"
+  }
+
+  $focused = {
+    type = "focused"
+    class = "focused"
+    show_icon = true
+    show_title = true
+    icon_size = 18
+    truncate.mode = "end"
+    truncate.max_length = 36
+  }
+
+  $tray = {
+    type = "tray"
+    class = "tray"
+    icon_size = 18
+  }
+
+  $clock = {
+    type = "clock"
+    class = "clock"
+    format = "%a %d %b  %H:%M"
+    format_popup = "%H:%M:%S"
+  }
+
+  $volume = {
+    type = "volume"
+    class = "volume"
+    format = "{icon} {percentage}%"
+    max_volume = 100
+    icons.volume_high = "󰕾"
+    icons.volume_medium = "󰖀"
+    icons.volume_low = "󰕿"
+    icons.muted = "󰖁"
+    on_scroll_down = "wpctl set-volume @DEFAULT_SINK@ 2%-"
+    on_scroll_up = "wpctl set-volume @DEFAULT_SINK@ 2%+"
+  }
+
+  $bluetooth = {
+    type = "bluetooth"
+    class = "bluetooth"
+    disable_popup = true
+    on_click_left = "blueman-manager"
+    format.connected = "󰂱 {device_alias}"
+    format.connected_battery = "󰂱 {device_alias} • {device_battery_percent}%"
+    format.enabled = "󰂯 On"
+    format.disabled = "󰂲 Off"
+    format.not_found = "󰂲 N/A"
+  }
+
+  $network = {
+    type = "script"
+    class = "network"
+    mode = "poll"
+    interval = 2000
+    cmd = "sh ~/.config/ironbar/scripts/network-status.sh"
+    tooltip = "Network connection"
+  }
+
+
+}
+in {
+  name = "main"
+  icon_theme = "Tela-circle-grey-dark"
+  position = "bottom"
+  anchor_to_edges = true
+  height = 32
+
+  start = [ $workspaces $focused ]
+  center = [ $clock ]
+  end = [ $volume $network $bluetooth $tray ]
+}
