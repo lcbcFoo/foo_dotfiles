@@ -25,6 +25,7 @@ upower
 brightnessctl
 playerctl
 flameshot
+grim
 ttf-sourcecodepro-nerd
 noto-fonts
 noto-fonts-emoji
