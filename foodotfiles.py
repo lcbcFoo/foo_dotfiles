@@ -34,6 +34,7 @@ CONFIGS: dict[str, dict] = {
         "links": [("kitty", "~/.config/kitty")],
         "submodules": {"kitty/kitty-themes": "https://github.com/dexpota/kitty-themes.git"},
     },
+    "ghostty": {"links": [("ghostty", "~/.config/ghostty")]},
     "nvim": {"links": [("nvim", "~/.config/nvim")]},
     "tmux": {"links": [("tmux/tmux.conf", "~/.tmux.conf")]},
     "dolphin": {

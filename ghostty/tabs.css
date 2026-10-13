@@ -1,0 +1,43 @@
+/* Kitty's tab colors (kitty/kitty.conf tab_bar_* and *_tab_* settings). */
+
+tabbar .box {
+  background-color: #1b1b1d;
+  min-height: 0;
+  padding: 2px 9px;
+}
+
+tabbar tabbox {
+  min-height: 0;
+  padding: 0;
+}
+
+tabbar tab {
+  background-color: #2d2b32;
+  color: #bbb4ba;
+  border-radius: 6px;
+  margin: 0 2px;
+  min-height: 22px;
+  padding: 0 6px;
+}
+
+/* Close buttons and the bar's new-tab button set the height otherwise. */
+tabbar tab button,
+tabbar .start-action button,
+tabbar .end-action button {
+  min-height: 18px;
+  min-width: 18px;
+  padding: 0;
+}
+
+tabbar tab:hover:not(:selected) {
+  background-color: #3a3840;
+}
+
+tabbar tab:selected {
+  background-color: #5dffe9;
+  color: #212121;
+}
+
+tabbar tab:selected label {
+  font-weight: bold;
+}

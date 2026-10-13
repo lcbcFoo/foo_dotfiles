@@ -1,5 +1,6 @@
 hyprland
 kitty
+ghostty
 yazi
 hyprlauncher
 hyprpaper
