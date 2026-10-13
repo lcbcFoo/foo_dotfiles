@@ -44,3 +44,6 @@ nodejs
 npm
 wl-clipboard
 lazygit
+dolphin
+breeze
+qt6ct

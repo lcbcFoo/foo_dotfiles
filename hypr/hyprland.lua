@@ -11,10 +11,10 @@ hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
--- Qt/KDE apps: force the portal platform theme so the widget palette follows the
--- session's dark preference (without it Qt can fall back to a light palette, which
--- paints black item text on the dark file-manager view).
-hl.env("QT_QPA_PLATFORMTHEME", "xdgdesktopportal")
+-- Qt/KDE apps: qt6ct supplies the Foocolors palette (qt6ct/) at startup. Outside
+-- Plasma, Dolphin keeps the startup palette's text colors while applying its own
+-- scheme over the rest, so a light startup palette paints black item text.
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 ------------------
 -- Machine profile
