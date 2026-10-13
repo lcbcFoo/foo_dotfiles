@@ -29,6 +29,27 @@ The package list covers the shared session. Desktop NVIDIA drivers, Proton VPN,
 and EasyEffects are machine-specific and are not in this list. Ironbar is now
 available in Arch's `extra` repository; this desktop currently uses `ironbar-git`.
 
+## Font
+
+Kitty requires **Maple Mono NF** (the Nerd Font build, for icons). It is not
+in the package lists; install it from the
+[upstream releases](https://github.com/subframe7536/maple-font/releases) into
+the user font directory:
+
+```sh
+v=v7.9
+cd /tmp
+curl -fLO https://github.com/subframe7536/maple-font/releases/download/$v/MapleMono-NF.zip
+curl -fLO https://github.com/subframe7536/maple-font/releases/download/$v/MapleMono-NF.sha256
+echo "$(cat MapleMono-NF.sha256)  MapleMono-NF.zip" | sha256sum -c
+mkdir -p ~/.local/share/fonts/MapleMono-NF
+bsdtar -xf MapleMono-NF.zip -C ~/.local/share/fonts/MapleMono-NF '*.ttf'
+fc-cache -f ~/.local/share/fonts
+fc-list : family | grep 'Maple Mono NF'
+```
+
+To update, repeat with a newer release tag.
+
 ## Neovim
 
 The package list includes Neovim, LazyVim's search/parser dependencies, a compiler,
